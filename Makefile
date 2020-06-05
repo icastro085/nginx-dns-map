@@ -1,13 +1,15 @@
 .PHONY: build
 build:
-	@docker build . --rm -t nginx-dns-map
+	docker-compose build
 
 .PHONY: start
 start:
-	@docker run \
-		--rm \
-		-v "/var/www/":"/var/www/" \
-		-p 80:80 \
-		-p 443:443 \
-		--net onsite-net \
-		-it nginx-dns-map
+	docker-compose up -d
+
+.PHONY: logs
+logs:
+	docker-compose logs -f
+
+.PHONY: stop
+stop:
+	docker-compose down
